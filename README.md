@@ -170,7 +170,7 @@ Registry availability depends on that pull request being merged by maintainers.
 Later releases use Git tags and do not require a new registry entry.
 
 The publication step receives `GH_TOKEN` from the Woodpecker repository secret
-`github_token`, restricted to tag events and the Python image. The token must
+`github_token`, restricted to tag events and injected only into `publish`. The token must
 allow releases in this repository,
 forking `nim-lang/packages`, and creating the registry pull request.
 
