@@ -1,0 +1,5 @@
+nimcache/
+/build/
+/examples/basic
+/tests/integration
+__pycache__/

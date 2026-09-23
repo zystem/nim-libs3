@@ -1,0 +1,10 @@
+services:
+  s3proxy:
+    image: andrewgaul/s3proxy
+    environment:
+      S3PROXY_IDENTITY: "local-identity"
+      S3PROXY_CREDENTIAL: "local-credential"
+      S3PROXY_AUTHORIZATION: "aws-v2-or-v4"
+      JCLOUDS_PROVIDER: "filesystem-nio2"
+    ports:
+      - "127.0.0.1::80"

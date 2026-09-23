@@ -1,0 +1,25 @@
+Third-party notices for nim-libs3
+
+The original Nim wrapper and generator code are licensed under the MIT
+license in the package LICENSE file. That grant does not relicense
+third-party material or the separately installed libs3 C library.
+
+src/libs3/raw.nim contains API declarations generated from bji/libs3's
+inc/libs3.h. Its upstream copyright and license notice is preserved at the
+top of the generated file. Applicable upstream rights and conditions are
+retained for material derived from that header.
+
+Upstream: https://github.com/bji/libs3
+Verified revision: 98f667b248a7288c1941582897343171cfdf441c
+Header: https://github.com/bji/libs3/blob/98f667b248a7288c1941582897343171cfdf441c/inc/libs3.h
+Copyright 2008 Bryan Ischo <bryan@ischo.com>
+
+Upstream offers GNU LGPL version 3 or later, alternatively GNU GPL version
+2 or later, with an additional OpenSSL linking exception. See the exact
+notice in licenses/UPSTREAM-LICENSE.txt. License texts are included in
+licenses/COPYING-LGPLv3.txt, licenses/COPYING-GPLv3.txt (incorporated by
+LGPLv3), and licenses/COPYING-GPLv2.txt.
+
+The C library is not bundled with this package. Distributors of linked
+applications or the C library must also meet the applicable upstream
+license conditions; the wrapper's MIT license does not waive them.

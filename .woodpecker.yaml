@@ -1,0 +1,44 @@
+steps:
+  test:
+    image: nimlang/nim:2.2.4-alpine
+    environment:
+      LD_LIBRARY_PATH: /usr/local/lib
+      S3_TEST_HOST: s3proxy:80
+    commands:
+      - apk add --no-cache build-base openssl-dev libxml2-dev curl-dev pcre-dev git python3
+      - git config --global --add safe.directory "$CI_WORKSPACE"
+      - git clone https://github.com/bji/libs3.git /tmp/libs3
+      - git -C /tmp/libs3 checkout 98f667b248a7288c1941582897343171cfdf441c
+      - make -C /tmp/libs3 libs3 BUILD=/tmp/libs3-build -j2
+      - mkdir -p /usr/local/include /usr/local/lib
+      - cp /tmp/libs3/inc/libs3.h /usr/local/include/
+      - cp /tmp/libs3-build/lib/libs3.so.4 /usr/local/lib/
+      - ln -s libs3.so.4 /usr/local/lib/libs3.so
+      - nimble install --depsOnly -y
+      - nimble test
+      - nimble testS3Proxy
+      - nim c -d:release --path:src --out:/tmp/libs3-basic examples/basic.nim
+    when:
+      - event: push
+      - event: pull_request
+      - event: tag
+
+  publish:
+    image: python:3.12-alpine
+    commands:
+      - python3 tools/publish.py
+    depends_on:
+      - test
+    when:
+      - event: tag
+        ref: refs/tags/v*
+
+services:
+  s3proxy:
+    image: andrewgaul/s3proxy
+    failure: ignore # S3Proxy exits with SIGTERM when Woodpecker stops services.
+    environment:
+      S3PROXY_IDENTITY: "local-identity"
+      S3PROXY_CREDENTIAL: "local-credential"
+      S3PROXY_AUTHORIZATION: "aws-v2-or-v4"
+      JCLOUDS_PROVIDER: "filesystem-nio2"
