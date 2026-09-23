@@ -1,4 +1,4 @@
-version = "0.1.0"
+version = "0.1.1"
 author = "libs3 contributors"
 description = "Nim bindings and synchronous client for bji/libs3 4.1"
 # MIT covers original wrapper code; see src/libs3/NOTICE.txt for upstream terms.

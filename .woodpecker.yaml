@@ -25,6 +25,9 @@ steps:
 
   publish:
     image: python:3.12-alpine
+    environment:
+      GH_TOKEN:
+        from_secret: github_token
     commands:
       - python3 tools/publish.py
     depends_on:

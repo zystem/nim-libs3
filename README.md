@@ -169,8 +169,9 @@ and opens a pull request to `nim-lang/packages` for initial Nimble registration.
 Registry availability depends on that pull request being merged by maintainers.
 Later releases use Git tags and do not require a new registry entry.
 
-The publication step uses `CI_NETRC_PASSWORD` supplied by Woodpecker (or
-`GH_TOKEN` if configured). The token must allow releases in this repository,
+The publication step receives `GH_TOKEN` from the Woodpecker repository secret
+`github_token`, restricted to tag events and the Python image. The token must
+allow releases in this repository,
 forking `nim-lang/packages`, and creating the registry pull request.
 
 ## Updating the bindings
